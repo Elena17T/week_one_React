@@ -1,9 +1,9 @@
-function Productdetailcard ({proddescription}) {
+function Productdetailcard ({id, title, img, description}) {
     return(
-        <div key={proddescription.id}>
-            <h2>{proddescription.title}</h2>
-            <img src = {proddescription.image} alt = {proddescription.title} />
-            <p>{proddescription.description}</p>
+        <div key={id}>
+            <h2>{title}</h2>
+            <img src = {img} alt = {title} />
+            <p>{description}</p>
         </div>
     );
 }

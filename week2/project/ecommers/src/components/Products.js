@@ -52,7 +52,7 @@ export default function Products({activeCategory}) {
     <div>
       {isLoading ? <div>Loading...</div> :
     <ul className='item-list'>
-         {prodData.map((item) => {
+         { prodData.map((item) => {
           const{id, images, title} = item;
     return(
       <Product key={id} title={title} img={images[0]} id={item.id} />

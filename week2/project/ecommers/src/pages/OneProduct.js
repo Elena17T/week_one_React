@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 
 export default function Oneproduct() {
   const {prodId} = useParams();
-  const [prod, setProdData] = useState(null);
+  const [prod, setProdData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [errorObj, setErrorObj] = useState({ isError: false, message: '' })
   
@@ -18,7 +18,7 @@ export default function Oneproduct() {
         setIsLoading(true);
         const prom = await fetch(`https://dummyjson.com/products/${prodId}`) 
         const data = await prom.json();
-        setProdData(data.product) 
+        setProdData(data) 
       }
       catch(error) {
         setErrorObj({ isError: true, message: error.message })
@@ -29,14 +29,21 @@ export default function Oneproduct() {
      }, [prodId]
   )
       
-  useEffect(() => {getProductsDescription()}, [prodId, getProductsDescription])
+  useEffect(() => {getProductsDescription(prodId)}, [prodId])
     
   return(
         <div>
           {errorObj.isError && <ErrorMessage errorMsg={errorObj.message} />}
           {isLoading ? <div></div> :
       <div>
-        <Productdetailcard proddescription={prod} /> 
+        {prod && (
+        <Productdetailcard
+          id={prod.id}
+          title={prod.title}
+          img={prod.images[0]}
+          description={prod.description}
+        />
+      )}
      </div>
 }
 </div>

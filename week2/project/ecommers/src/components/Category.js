@@ -5,10 +5,10 @@ import ErrorMessage from '../pages/ErrorMessage';
 
 export default function Category(props) {
   
-  const[categoryName, setCategory] = useState([]);
+  const[categoryName, setCategory] = useState(null);
   const[isLoading, setLoading] = useState(true);
   const [errorObj, setErrorObj] = useState({ isError: false, message: '' })
-  useEffect(()=> {CategoriesList()}, []);
+  
 async function CategoriesList() {
   try{
     setLoading(true);
@@ -23,6 +23,8 @@ async function CategoriesList() {
     setLoading(false);
   }
 }
+
+useEffect(()=> {CategoriesList()}, []);
 
 function selectCategory(name){
 
@@ -42,7 +44,7 @@ function selectCategory(name){
     <div>
       {isLoading ? <div>Loading...</div> :
     <div className='categories'>
-         {categoryName.map((category, index) => (
+         {categoryName && categoryName.map((category, index) => (
         <ListCategory
         name={category}
         key={index}
