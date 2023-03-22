@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 
 export default function Oneproduct() {
   const {prodId} = useParams();
-  const [prod, setProdData] = useState();
+  const [prod, setProdData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorObj, setErrorObj] = useState({ isError: false, message: '' })
   
@@ -16,9 +16,9 @@ export default function Oneproduct() {
     async () => {
       try{
         setIsLoading(true);
-        const prom = await fetch(`https://fakestoreapi.com/products/${prodId}`) 
+        const prom = await fetch(`https://dummyjson.com/products/${prodId}`) 
         const data = await prom.json();
-        setProdData(data) 
+        setProdData(data.product) 
       }
       catch(error) {
         setErrorObj({ isError: true, message: error.message })

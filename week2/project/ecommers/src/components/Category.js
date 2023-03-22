@@ -12,7 +12,7 @@ export default function Category(props) {
 async function CategoriesList() {
   try{
     setLoading(true);
-    const prom = await fetch('https://fakestoreapi.com/products/categories');
+    const prom = await fetch('https://dummyjson.com/products/categories/');
     const data = await prom.json();
     setCategory(data);
   }

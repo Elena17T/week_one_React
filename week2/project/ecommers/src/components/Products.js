@@ -15,9 +15,9 @@ export default function Products({activeCategory}) {
       async function getProducts () {
         try {
           setIsLoading(true);
-            const prom = (activeCategory !== 'All') ? await fetch(`https://fakestoreapi.com/products/category/${activeCategory}`) : await fetch(`https://fakestoreapi.com/products`)
+            const prom = (activeCategory !== 'All') ? await fetch(`https://dummyjson.com/products/category/${activeCategory}`) : await fetch(`https://dummyjson.com/products/`)
             const data = await prom.json(); 
-            setProdData(data);
+            setProdData(data.products);
           }
           catch(error) {
             setErrorObj({isError: true, message: error.message})
@@ -27,21 +27,23 @@ export default function Products({activeCategory}) {
           }
     
       }
-    useEffect(() => {getProducts()}, [activeCategory, getProducts])
+    useEffect(() => {getProducts(activeCategory)}, [activeCategory])
         
   function Product({id, img, title}) {
  
     return(
       <>
           {errorObj.isError && <ErrorMessage errorMsg={errorObj.message} />}
+          <div className='wrapper'>
         <Link to = {`/oneproduct/${id}`}  key={id}>
         <li className='products'>
-            <div className='wrapper'>
+            {/* <div className='wrapper'> */}
               <img className='product-image' src={img} alt="img"></img>
               <span className='product-title'>{title}</span>
-            </div>
+            {/* </div> */}
         </li>
         </Link>
+        </div>
   
         </>
     );
@@ -51,9 +53,9 @@ export default function Products({activeCategory}) {
       {isLoading ? <div>Loading...</div> :
     <ul className='item-list'>
          {prodData.map((item) => {
-          const{id, image, title} = item;
+          const{id, images, title} = item;
     return(
-      <Product key={id} title={title} img={image} id={id} />
+      <Product key={id} title={title} img={images[0]} id={item.id} />
 
     )}
     )}
